@@ -1,12 +1,40 @@
 # CHANGELOG - sitespeed.io
-
 ## Unreleased
+
+### Added
+* Rework of the WebPageTest result tab: More metrics, requests per content type, requests per domain and screenshot.
+* Rework of PageXray result tab: requests per content type, requests per domain, cookies stats
+* Rework of Browsertime result tab: easier to find the most important metrics
+* More info from GPSI on the result tab.
+* Always download screenshots, waterfall graphs, and Chrome traceLog and store it local from WebPageTest.
+* Better HTML page titles, showing what's tested and when, that makes it easier when you share URLs.
+* HTML tuning for smaller devices.
+* Added proxy parameters in the CLI from Browsertime.
+* Updated to [PerfCascade 1.2.2](https://github.com/micmro/PerfCascade/releases) (from 1.0.0)
+* Add new s3.path option, to override the default storage path in the S3 bucket.
+* Pickup timestamp from each run and display on each run page
+* Added possibility to set the graphite web host (--graphite.webHost)
+* Set Graphite tags as arrays (--graphite.arrayTags) needed for Graphite 1.0
+
+### Changed
+* The default upload path in S3 buckets no longer includes the prefix 'sitespeed-result'
+
+### Fixed
+* Waterfall graphs loaded in Safari iOS didn't work.
+* Allow S3 upload even when using custom outputFolder.
+
+## 4.7.0 2017-03-15
 ### Fixed
 * Link User Timings in Page Summary (so you easy can find min/median/max of your User Timings).
+* Slack missed URL specific information introduced in the 4.6.1 release. Now you get info per URL again.
+* Default values for warning and error in Slack was wrong. Before warning was 80 and error 90, now warning is 90 and error 80.
+* Setting a speedIndex/firstVisualChange as a warning/error value for Slack didn't work.
 
-## Added
+### Added
 * Design: Make it easy to see which run you are looking at on by highlighting that run on the run list. Unified metrics naming.
 * Made it possible to gzip the HAR files.
+* Made it easy to download WebPageTest HAR files.
+* A loader indicating that we are waiting in the HAR when it is fetched.
 
 ## 4.6.1 2017-03-11
 
@@ -438,7 +466,7 @@ version 4.0.0-alpha1 - 2016-05-22
 
 * New HAR files rock! In the old version we use BrowserMobProxy as a proxy in front of the browser to collect the HAR. In the new version we collect the HAR directly from the browser. For Firefox we use the [HAR export trigger](https://github.com/firebug/har-export-trigger) and in Chrome we generates it from the performance log.
 
-* Stability: We have a new completely rewritten version of [Browsertime](https://github.com/tobli/browsertime) that makes it easier for us to catch errors from the browser, drivers and environment problems.  
+* Stability: We have a new completely rewritten version of [Browsertime](https://github.com/tobli/browsertime) that makes it easier for us to catch errors from the browser, drivers and environment problems.
 
 * Speed: Yep we dropped Java (it was needed for BrowserMobProxy) and most things are happening in parallel with the new version.
 

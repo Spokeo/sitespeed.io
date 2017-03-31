@@ -1,16 +1,30 @@
 a#waterfall
 h3 Waterfall
 
+//- on the summary page, display which run that was chosen for the HAR
+if medianRun
+  p.small Run&nbsp;
+    a(href='./' + medianRun.runIndex + '.html') #{(medianRun.runIndex + 1)}
+    | &nbsp;#{medianRun.name}
+    if !medianRun.default
+      | &nbsp;median
+
 if (options.html.showAllWaterfallSummary === true)
   p Choose HAR:
   select#page-selector
-- var harName = options.gzipHAR ? 'data/browsertime.har.gz' : 'data/browsertime.har'
-a(href=harName) Download
-|  the HAR file.
+
 #legend-holder
-#output
 
 if options.html.fetchHARFiles
   include ./fetchHAR.pug
 else
   include ./includeHARinHTML.pug
+
+.downloads
+  - var harEnding = options.gzipHAR ? '.har.gz' : '.har'
+  - var harName = 'data/browsertime' + harEnding
+  - var harDownloadName = downloadName + harEnding
+  a.button.button-download(href=harName, download=harDownloadName) Download HAR
+
+  if options.html.logDownloadLink
+    a.button.button-download(href='../../logs/sitespeed.io.log', download) Download run log
